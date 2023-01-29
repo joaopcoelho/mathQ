@@ -8,16 +8,20 @@ import os
 
 openai.api_key = os.getenv('OpenAI_API_Key')
 
-courses = ['18.01', '18.02', '18.03', '6.042', '18.05', '18.06', 'COMS3251']
-MATH_sections = ['MATH_Algebra', 'MATH_Counting_&_Probability', 'MATH_Intermediate_Algebra', 
-                 'MATH_Number_Theory', 'MATH_Prealgebra', 'MATH_Precalculus']
-image_labels = {'18.01':'r.', '18.02':'g.', '18.03':'b.', '18.05':'mx', '18.06':'k+', '6.042':'cx', 'COMS3251':'y+'}
+# courses = ['18.01', '18.02', '18.03', '6.042', '18.05', '18.06', 'COMS3251']
+courses = ['18.05']
+# MATH_sections = ['MATH_Algebra', 'MATH_Counting_&_Probability', 'MATH_Intermediate_Algebra',
+#                 'MATH_Number_Theory', 'MATH_Prealgebra', 'MATH_Precalculus']
+MATH_sections = ['MATH_Counting_&_Probability']
+image_labels = {'18.01': 'r.', '18.02': 'g.', '18.03': 'b.',
+                '18.05': 'mx', '18.06': 'k+', '6.042': 'cx', 'COMS3251': 'y+'}
 courses_embeddings_location = 'code/course_embeddings.json'
 MATH_embeddings_location = 'code/MATH_embeddings.json'
 image_location = "UMAP.png"
 embedding_engine = 'text-similarity-babbage-001'
 questions_per_course = 25
 questions_per_MATH_section = 15
+
 
 def make_embeddings(embedding_engine, embeddings_location, courses, questions_per_course):
     """
@@ -34,17 +38,20 @@ def make_embeddings(embedding_engine, embeddings_location, courses, questions_pe
                 q_num = '0' + str(num)
             else:
                 q_num = str(num)
-            json_location = './Data/' + course.split('_')[0] + '/' + course + '_Question_' + q_num + '.json'
+            json_location = './Data/' + \
+                course.split('_')[0] + '/' + course + \
+                '_Question_' + q_num + '.json'
             with open(json_location, 'r') as f:
                 data = json.load(f)
             raw_question = data['Original question']
-            embedding = openai.Embedding.create(input = raw_question, 
-                                                engine = embedding_engine)['data'][0]['embedding']
+            embedding = openai.Embedding.create(input=raw_question,
+                                                engine=embedding_engine)['data'][0]['embedding']
             list_of_embeddings.append(embedding)
 
-    embeddings = {'list_of_embeddings':list_of_embeddings}
+    embeddings = {'list_of_embeddings': list_of_embeddings}
     with open(embeddings_location, 'w') as f:
         f.write(json.dumps(embeddings))
+
 
 def get_embeddings(embeddings_file):
     """
@@ -53,6 +60,7 @@ def get_embeddings(embeddings_file):
     with open(embeddings_file, 'r') as f:
         points = json.load(f)['list_of_embeddings']
     return np.array(points)
+
 
 def get_most_similar(embeddings, i):
     """
@@ -71,6 +79,7 @@ def get_most_similar(embeddings, i):
         closest_qs.append(cos_to_num[val]+1)
     return closest_qs[1:]
 
+
 def reduce_via_umap(embeddings, num_dims=2):
     """
     Reduces the dimensionality of the provided embeddings(which are vectors) to num_dims via UMAP.
@@ -80,7 +89,8 @@ def reduce_via_umap(embeddings, num_dims=2):
     reduced = reducer.fit_transform(embeddings)
     return reduced
 
-def plot_clusters(points, image_loc, questions_per_course=25, show=False, question_labels=False, 
+
+def plot_clusters(points, image_loc, questions_per_course=25, show=False, question_labels=False,
                   label_font='xx-small', dpi=200, width=9.5, height=6.5, legend_loc=(1, 1.01), right_shift=0.72):
     """
     Plots clusters of points. points is assumed to be a n by 2 numpy array.
@@ -88,35 +98,40 @@ def plot_clusters(points, image_loc, questions_per_course=25, show=False, questi
     Set show to True if you want the created plot to pop up.
     The other parameters are defaulted to values that we have found to work well for the visual itself.
     """
-    x = [x for x,y in points]
-    y = [y for x,y in points]
+    x = [x for x, y in points]
+    y = [y for x, y in points]
     plt.subplots_adjust(right=right_shift)
     figure = plt.gcf()
-    figure.set_size_inches(w=width,h=height)
+    figure.set_size_inches(w=width, h=height)
 
     for i, course in enumerate(courses):
-        plt.scatter(x[i*questions_per_course:(i+1)*questions_per_course], 
-                    y[i*questions_per_course:(i+1)*questions_per_course], 
-                    c = image_labels[course][0], 
-                    label = course, 
-                    marker = image_labels[course][1])
+        plt.scatter(x[i*questions_per_course:(i+1)*questions_per_course],
+                    y[i*questions_per_course:(i+1)*questions_per_course],
+                    c=image_labels[course][0],
+                    label=course,
+                    marker=image_labels[course][1])
         if question_labels:
             for j in range(questions_per_course):
-                plt.annotate(j+1, (x[questions_per_course*i+j], y[questions_per_course*i+j]), fontsize=label_font)
+                plt.annotate(j+1, (x[questions_per_course*i+j],
+                             y[questions_per_course*i+j]), fontsize=label_font)
 
     plt.legend(bbox_to_anchor=legend_loc)
     plt.savefig(image_loc, dpi=dpi)
     if show:
         plt.show()
 
+
 if __name__ == "__main__":
-    #for courses:
+    # for courses:
     if not os.path.exists(courses_embeddings_location):
-        make_embeddings(embedding_engine, courses_embeddings_location, courses, questions_per_course)
+        make_embeddings(embedding_engine, courses_embeddings_location,
+                        courses, questions_per_course)
     embeddings = get_embeddings(courses_embeddings_location)
     reduced_points = reduce_via_umap(embeddings)
-    plot_clusters(reduced_points, image_location, questions_per_course=questions_per_course, question_labels=True)
-    
-    #for MATH:
+    plot_clusters(reduced_points, image_location,
+                  questions_per_course=questions_per_course, question_labels=True)
+
+    # for MATH:
     if not os.path.exists(MATH_embeddings_location):
-        make_embeddings(embedding_engine, MATH_embeddings_location, MATH_sections, questions_per_MATH_section)
+        make_embeddings(embedding_engine, MATH_embeddings_location,
+                        MATH_sections, questions_per_MATH_section)
