@@ -33,13 +33,13 @@ openai.api_key = os.getenv('OpenAI_API_Key')
 courses_to_zero_shot = ['18.05']
 MATH_sections_to_zero_shot = ['MATH_Algebra', 'MATH_Counting_&_Probability', 'MATH_Intermediate_Algebra',
                               'MATH_Number_Theory', 'MATH_Prealgebra', 'MATH_Precalculus']
-questions_per_course = 1
+questions_per_course = 3
 questions_per_MATH_section = 15
 codex_engine = "code-davinci-002"
 gpt3_engine = "text-davinci-002"
 engine_temperature = 0
 engine_topP = 0
-zero_shot_max_tokens = 1024
+zero_shot_max_tokens = 512
 explanation_max_tokens = 150
 gpt3_max_tokens = 200
 gpt3_CoT_max_tokens = 1000

@@ -19,7 +19,7 @@ courses_embeddings_location = 'code/course_embeddings.json'
 MATH_embeddings_location = 'code/MATH_embeddings.json'
 image_location = "UMAP.png"
 embedding_engine = 'text-similarity-babbage-001'
-questions_per_course = 25
+questions_per_course = 28
 questions_per_MATH_section = 15
 
 
@@ -128,8 +128,8 @@ if __name__ == "__main__":
                         courses, questions_per_course)
     embeddings = get_embeddings(courses_embeddings_location)
     reduced_points = reduce_via_umap(embeddings)
-    plot_clusters(reduced_points, image_location,
-                  questions_per_course=questions_per_course, question_labels=True)
+    # plot_clusters(reduced_points, image_location,
+    #              questions_per_course=questions_per_course, question_labels=True)
 
     # for MATH:
     if not os.path.exists(MATH_embeddings_location):

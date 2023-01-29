@@ -1,21 +1,325 @@
-Question,Original Question,Actual Solution,Codex Input,Codex Output,Zero-Shot Evaluation,Most Similar Questions
-1,"We intend to choose 8 pieces of clothing for the organization of a fashion show. To this end, the show's producers have at their disposal a selection of 17 pieces of white clothing and 15 pieces of yellow clothing. Knowing that the producers want at least 3 pieces of clothing of each color to show, in how many different ways can the producers choose the clothes for the show? Use the python itertools library.",0.021128,"""""""
-write a program that answers the following question: We intend to choose 8 pieces of clothing for the organization of a fashion show. To this end, the show's producers have at their disposal a selection of 17 pieces of white clothing and 15 pieces of yellow clothing. Knowing that the producers want at least 3 pieces of clothing of each color to show, in how many different ways can the producers choose the clothes for the show? Use the python itertools library.
+Question,Original Question,Actual Solution,Codex Input,Codex Output,Zero-Shot Evaluation,Most Similar Questions,Few-Shot Input,Few-Shot Output,Few-Shot Evaluation
+1,"Consider a deck of 13 cards, with a representative of each card in a typical deck (Ace, 2, 3, 4, 5, 6, 7, 8, 9, 10, Jack, Queen and King). 3 cards are randomly drawn from the deck in sequence. In how many ways can you draw a figure (Jack, Queen or King) followed by 2 different numbers?",overfit,"""""""
+write a program that answers the following question: Consider a deck of 13 cards, with a representative of each card in a typical deck (Ace, 2, 3, 4, 5, 6, 7, 8, 9, 10, Jack, Queen and King). 3 cards are randomly drawn from the deck in sequence. In how many ways can you draw a figure (Jack, Queen or King) followed by 2 different numbers?
 """"""
 ","
-import itertools
+import random
 
-def combinations(n, k):
-    return int(factorial(n) / (factorial(k) * factorial(n - k)))
+def draw_cards():
+    """"""
+    Draw 3 cards from a deck of 13 cards.
+    """"""
+    deck = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+    drawn_cards = []
+    for i in range(3):
+        drawn_cards.append(random.choice(deck))
+        deck.remove(drawn_cards[i])
+    return drawn_cards
 
-def factorial(n):
-    if n == 0:
-        return 1
+def check_cards(drawn_cards):
+    """"""
+    Check if the drawn cards are a figure followed by 2 different numbers.
+    """"""
+    if drawn_cards[0] > 10 and drawn_cards[1] != drawn_cards[2]:
+        return True
     else:
-        return n * factorial(n - 1)
+        return False
 
 def main():
-    print(combinations(17, 3) * combinations(15, 5))
+    """"""
+    Run the program.
+    """"""
+    number_of_draws = int(input(""How many times do you want to draw 3 cards? ""))
+    number_of_successes = 0
+    for i in range(number_of_draws):
+        drawn_cards = draw_cards()
+        if check_cards(drawn_cards):
+            number_of_successes += 1
+    print(""The probability of drawing a figure followed by 2 different numbers is"", number_of_successes / number_of_draws)
 
 if __name__ == ""__main__"":
-    main()",,"[25, 2, 3, 6, 8, 7, 21, 22, 5, 9, 24, 17, 18, 4, 19, 20, 12, 11, 15, 13, 14, 10, 23, 16]"
+    main()",0,[3],"""""""
+write a program that answers the following question: Generate simulations for calculating the average probability of getting a three-pair poker hand.
+
+A hand is a set of 5 cards that are drawn randomly from a standard 52 card deck with 13 ranks of 4 cards each.
+
+A three-pair poker hand is a hand that contains exactly 3 cards that share one rank, 1 card of another rank, and a final card of another rank.
+""""""
+
+import random
+
+def generate_hand():
+    """"""
+    Generates a random hand of 5 cards from a standard 52 card deck.
+    """"""
+    ranks = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+    suits = ['S', 'H', 'D', 'C']
+    hand = []
+    for i in range(5):
+        rank = random.choice(ranks)
+        suit = random.choice(suits)
+        hand.append((rank, suit))
+    return hand
+
+def is_three_pair(hand):
+    """"""
+    Returns True if the hand is a three-pair poker hand.
+    """"""
+    ranks = [card[0] for card in hand]
+    rank_counts = {}
+    for rank in ranks:
+        if rank in rank_counts:
+            rank_counts[rank] += 1
+        else:
+            rank_counts[rank] = 1
+    if len(rank_counts) == 3:
+        return True
+    else:
+        return False
+
+def simulate_three_pair_probability(num_trials):
+    """"""
+    Simulates the probability of getting a three-pair poker hand.
+    """"""
+    num_three_pair = 0
+    for i in range(num_trials):
+        hand = generate_hand()
+        if is_three_pair(hand):
+            num_three_pair += 1
+    return num_three_pair / num_trials
+
+print(simulate_three_pair_probability(10000))
+
+""""""
+write a program that answers the following question: Consider a deck of 13 cards, with a representative of each card in a typical deck (Ace, 2, 3, 4, 5, 6, 7, 8, 9, 10, Jack, Queen and King). 3 cards are randomly drawn from the deck in sequence. In how many ways can you draw a figure (Jack, Queen or King) followed by 2 different numbers?
+""""""
+","
+import random
+
+def generate_hand():
+    """"""
+    Generates a random hand of 3 cards from a standard 13 card deck.
+    """"""
+    ranks = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+    suits = ['S', 'H', 'D', 'C']
+    hand = []
+    for i in range(3):
+        rank = random.choice(ranks)
+        suit = random.choice(suits)
+        hand.append((rank, suit))
+    return hand
+
+def is_figure_followed_by_two_different_numbers(hand):
+    """"""
+    Returns True if the hand is a figure followed by two different numbers.
+    """"""
+    ranks = [card[0] for card in hand]
+    if ranks[0] in [11, 12, 13] and ranks[1] not in [11, 12, 13] and ranks[2] not in [11, 12, 13]:
+        return True
+    else:
+        return False
+
+def simulate_figure_followed_by_two_",
+2,"Consider a deck of 13 cards, with a representative of each card in a typical deck (Ace, 2, 3, 4, 5, 6, 7, 8, 9, 10, Jack, Queen and King). 3 cards are drawn at random from the deck. What is the probability that the product of the drawn cards is odd, knowing that only numbered cards were drawn?",overfit,"""""""
+write a program that answers the following question: Consider a deck of 13 cards, with a representative of each card in a typical deck (Ace, 2, 3, 4, 5, 6, 7, 8, 9, 10, Jack, Queen and King). 3 cards are drawn at random from the deck. What is the probability that the product of the drawn cards is odd, knowing that only numbered cards were drawn?
+""""""
+","
+import random
+
+def draw_cards():
+    """"""
+    Draw 3 cards from a deck of 13 cards.
+    """"""
+    deck = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+    drawn_cards = []
+    for i in range(3):
+        drawn_cards.append(random.choice(deck))
+    return drawn_cards
+
+def is_odd(number):
+    """"""
+    Check if a number is odd.
+    """"""
+    if number % 2 == 0:
+        return False
+    else:
+        return True
+
+def is_product_odd(drawn_cards):
+    """"""
+    Check if the product of the drawn cards is odd.
+    """"""
+    product = 1
+    for card in drawn_cards:
+        product *= card
+    if is_odd(product):
+        return True
+    else:
+        return False
+
+def is_only_numbered_cards(drawn_cards):
+    """"""
+    Check if only numbered cards were drawn.
+    """"""
+    for card in drawn_cards:
+        if card > 10:
+            return False
+    return True
+
+def main():
+    """"""
+    Main function.
+    """"""
+    number_of_trials = 100000
+    number_of_successes = 0
+    for i in range(number_of_trials):
+        drawn_cards = draw_cards()
+        if is_product_odd(drawn_cards) and is_only_numbered_cards(drawn_cards):
+            number_of_successes += 1
+    print(""Probability of success:"", number_of_successes / number_of_trials)
+
+if __name__ == ""__main__"":
+    main()",0,[3],"""""""
+write a program that answers the following question: Generate simulations for calculating the average probability of getting a three-pair poker hand.
+
+A hand is a set of 5 cards that are drawn randomly from a standard 52 card deck with 13 ranks of 4 cards each.
+
+A three-pair poker hand is a hand that contains exactly 3 cards that share one rank, 1 card of another rank, and a final card of another rank.
+""""""
+
+import random
+
+def generate_hand():
+    """"""
+    Generates a random hand of 5 cards from a standard 52 card deck.
+    """"""
+    ranks = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+    suits = ['S', 'H', 'D', 'C']
+    hand = []
+    for i in range(5):
+        rank = random.choice(ranks)
+        suit = random.choice(suits)
+        hand.append((rank, suit))
+    return hand
+
+def is_three_pair(hand):
+    """"""
+    Returns True if the hand is a three-pair poker hand.
+    """"""
+    ranks = [card[0] for card in hand]
+    rank_counts = {}
+    for rank in ranks:
+        if rank in rank_counts:
+            rank_counts[rank] += 1
+        else:
+            rank_counts[rank] = 1
+    if len(rank_counts) == 3:
+        return True
+    else:
+        return False
+
+def simulate_three_pair_probability(num_trials):
+    """"""
+    Simulates the probability of getting a three-pair poker hand.
+    """"""
+    num_three_pair = 0
+    for i in range(num_trials):
+        hand = generate_hand()
+        if is_three_pair(hand):
+            num_three_pair += 1
+    return num_three_pair / num_trials
+
+print(simulate_three_pair_probability(10000))
+
+""""""
+write a program that answers the following question: Consider a deck of 13 cards, with a representative of each card in a typical deck (Ace, 2, 3, 4, 5, 6, 7, 8, 9, 10, Jack, Queen and King). 3 cards are drawn at random from the deck. What is the probability that the product of the drawn cards is odd, knowing that only numbered cards were drawn?
+""""""
+","
+import random
+
+def generate_hand():
+    """"""
+    Generates a random hand of 3 cards from a standard 13 card deck.
+    """"""
+    ranks = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+    suits = ['S', 'H', 'D', 'C']
+    hand = []
+    for i in range(3):
+        rank = random.choice(ranks)
+        suit = random.choice(suits)
+        hand.append((rank, suit))
+    return hand
+
+def is_odd_product(hand):
+    """"""
+    Returns True if the product of the cards in the hand is odd.
+    """"""
+    ranks = [card[0] for card in hand]
+    product = 1
+    for rank in ranks:
+        product *= rank
+    if product % 2 == 1:
+        return True
+    else:
+        return False
+
+def simulate_odd_product_probability(num_trials):
+    """"""
+    Simulates the probability of getting a hand with an odd product.
+    """"""
+",
+3,"Generate simulations for calculating the average probability of getting a three-pair poker hand.
+
+A hand is a set of 5 cards that are drawn randomly from a standard 52 card deck with 13 ranks of 4 cards each.
+
+A three-pair poker hand is a hand that contains exactly 3 cards that share one rank, 1 card of another rank, and a final card of another rank.",0.021128,"""""""
+write a program that answers the following question: Generate simulations for calculating the average probability of getting a three-pair poker hand.
+
+A hand is a set of 5 cards that are drawn randomly from a standard 52 card deck with 13 ranks of 4 cards each.
+
+A three-pair poker hand is a hand that contains exactly 3 cards that share one rank, 1 card of another rank, and a final card of another rank.
+""""""
+","
+import random
+
+def generate_hand():
+    """"""
+    Generates a random hand of 5 cards from a standard 52 card deck.
+    """"""
+    ranks = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+    suits = ['S', 'H', 'D', 'C']
+    hand = []
+    for i in range(5):
+        rank = random.choice(ranks)
+        suit = random.choice(suits)
+        hand.append((rank, suit))
+    return hand
+
+def is_three_pair(hand):
+    """"""
+    Returns True if the hand is a three-pair poker hand.
+    """"""
+    ranks = [card[0] for card in hand]
+    rank_counts = {}
+    for rank in ranks:
+        if rank in rank_counts:
+            rank_counts[rank] += 1
+        else:
+            rank_counts[rank] = 1
+    if len(rank_counts) == 3:
+        return True
+    else:
+        return False
+
+def simulate_three_pair_probability(num_trials):
+    """"""
+    Simulates the probability of getting a three-pair poker hand.
+    """"""
+    num_three_pair = 0
+    for i in range(num_trials):
+        hand = generate_hand()
+        if is_three_pair(hand):
+            num_three_pair += 1
+    return num_three_pair / num_trials
+
+print(simulate_three_pair_probability(10000))",1,[2],n/a,n/a,
