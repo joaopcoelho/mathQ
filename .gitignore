@@ -1,0 +1,7 @@
+.vscode/
+mathq-venv/
+*__pycache__
+
+
+*.png
+

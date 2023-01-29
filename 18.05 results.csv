@@ -1,0 +1,21 @@
+Question,Original Question,Actual Solution,Codex Input,Codex Output,Zero-Shot Evaluation,Most Similar Questions
+1,"We intend to choose 8 pieces of clothing for the organization of a fashion show. To this end, the show's producers have at their disposal a selection of 17 pieces of white clothing and 15 pieces of yellow clothing. Knowing that the producers want at least 3 pieces of clothing of each color to show, in how many different ways can the producers choose the clothes for the show? Use the python itertools library.",0.021128,"""""""
+write a program that answers the following question: We intend to choose 8 pieces of clothing for the organization of a fashion show. To this end, the show's producers have at their disposal a selection of 17 pieces of white clothing and 15 pieces of yellow clothing. Knowing that the producers want at least 3 pieces of clothing of each color to show, in how many different ways can the producers choose the clothes for the show? Use the python itertools library.
+""""""
+","
+import itertools
+
+def combinations(n, k):
+    return int(factorial(n) / (factorial(k) * factorial(n - k)))
+
+def factorial(n):
+    if n == 0:
+        return 1
+    else:
+        return n * factorial(n - 1)
+
+def main():
+    print(combinations(17, 3) * combinations(15, 5))
+
+if __name__ == ""__main__"":
+    main()",,"[25, 2, 3, 6, 8, 7, 21, 22, 5, 9, 24, 17, 18, 4, 19, 20, 12, 11, 15, 13, 14, 10, 23, 16]"
