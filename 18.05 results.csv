@@ -1,325 +1,179 @@
-Question,Original Question,Actual Solution,Codex Input,Codex Output,Zero-Shot Evaluation,Most Similar Questions,Few-Shot Input,Few-Shot Output,Few-Shot Evaluation
-1,"Consider a deck of 13 cards, with a representative of each card in a typical deck (Ace, 2, 3, 4, 5, 6, 7, 8, 9, 10, Jack, Queen and King). 3 cards are randomly drawn from the deck in sequence. In how many ways can you draw a figure (Jack, Queen or King) followed by 2 different numbers?",overfit,"""""""
-write a program that answers the following question: Consider a deck of 13 cards, with a representative of each card in a typical deck (Ace, 2, 3, 4, 5, 6, 7, 8, 9, 10, Jack, Queen and King). 3 cards are randomly drawn from the deck in sequence. In how many ways can you draw a figure (Jack, Queen or King) followed by 2 different numbers?
+Question,Original Question,Actual Solution,Codex Input,Codex Output,Zero-Shot Evaluation,Most Similar Questions
+1,"Fernanda has five different books and seven different pens to share with her two grandchildren, Armando and Catarino. Fernanda will offer three books and three pens to one of the grandchildren, and the remaining objects to the other, or four books and two pens to one of the grandchildren, and the remaining objects to the other. Determine, under these conditions, how many different ways Fernanda can divide the twelve objects between her two grandchildren.",overfit,"""""""
+write a program that answers the following question: Fernanda has five different books and seven different pens to share with her two grandchildren, Armando and Catarino. Fernanda will offer three books and three pens to one of the grandchildren, and the remaining objects to the other, or four books and two pens to one of the grandchildren, and the remaining objects to the other. Determine, under these conditions, how many different ways Fernanda can divide the twelve objects between her two grandchildren.
 """"""
 ","
-import random
+import math # Solution
 
-def draw_cards():
-    """"""
-    Draw 3 cards from a deck of 13 cards.
-    """"""
-    deck = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
-    drawn_cards = []
-    for i in range(3):
-        drawn_cards.append(random.choice(deck))
-        deck.remove(drawn_cards[i])
-    return drawn_cards
+number_of_grandchildren = 2
 
-def check_cards(drawn_cards):
-    """"""
-    Check if the drawn cards are a figure followed by 2 different numbers.
-    """"""
-    if drawn_cards[0] > 10 and drawn_cards[1] != drawn_cards[2]:
-        return True
-    else:
-        return False
+# The number of ways to choose 3 books from 5 books
+books = 5
+
+books_chosen = 3
+books_combinations = math.factorial(books) / (math.factorial(books_chosen) * math.factorial(books - books_chosen))
+
+# The number of ways to choose 3 pens from 7 pens
+pens = 7
+pens_chosen = 3
+pens_combinations = math.factorial(pens) / (math.factorial(pens_chosen) * math.factorial(pens - pens_chosen))
+
+# The number of ways to choose 3 books and 3 pens from 5 books and 7 pens
+combinations_3_books_3_pens = number_of_grandchildren * books_combinations * pens_combinations
+
+# The number of ways to choose 4 books from 5 books
+books_chosen = 4
+books_combinations = math.factorial(books) / (math.factorial(books_chosen) * math.factorial(books - books_chosen))
+
+# The number of ways to choose 2 pens from 7 pens
+pens_chosen = 2
+pens_combinations = math.factorial(pens) / (math.factorial(pens_chosen) * math.factorial(pens - pens_chosen))
+
+# The number of ways to choose 4 books and 2 pens from 5 books and 7 pens
+combinations_4_books_2_pens = number_of_grandchildren * books_combinations * pens_combinations
+
+total_combinations = combinations_3_books_3_pens + combinations_4_books_2_pens
+
+print(total_combinations)",,"[25, 2, 3, 6, 8, 7, 21, 22, 5, 9, 24, 17, 18, 4, 19, 20, 12, 11, 15, 13, 14, 10, 23, 16]"
+2,"Korfball is a mixed team sport, which originated in the Netherlands. A korfball club from a certain country is going to participate in an international tournament. The delegation will travel by land, using a five-seater car and a nine-seater van. The entourage consists of three managers, a coach, five male and five female players. Write an expression that gives the number of different ways to distribute the fourteen elements of the entourage among the fourteen available places, knowing that the two drivers are two of the managers and that, in the car, there are two players of each gender.",overfit,"""""""
+write a program that answers the following question: Korfball is a mixed team sport, which originated in the Netherlands. A korfball club from a certain country is going to participate in an international tournament. The delegation will travel by land, using a five-seater car and a nine-seater van. The entourage consists of three managers, a coach, five male and five female players. Write an expression that gives the number of different ways to distribute the fourteen elements of the entourage among the fourteen available places, knowing that the two drivers are two of the managers and that, in the car, there are two players of each gender.
+""""""
+","
+import math # Solution
+
+car_seats = 5
+car_drivers = 1
+van_seats = 9
+van_drivers = 1
+drivers = car_drivers + van_drivers
+managers = 3
+
+# The number of ways to choose 2 drivers from 3 managers
+permutations_drivers = math.factorial(managers) / (math.factorial(managers - drivers))
+
+coaches = 1
+male_players = 5
+female_players = 5
+max_players_of_each_gender_in_car = 2
+
+# The number of ways to choose 2 male players among 5 male players
+permutations_male_players_in_car = math.factorial(male_players) / (math.factorial(max_players_of_each_gender_in_car) * math.factorial(male_players - max_players_of_each_gender_in_car))
+
+# The number of ways to choose 2 female players among 5 female players
+permutations_female_players_in_car = math.factorial(female_players) / (math.factorial(max_players_of_each_gender_in_car) * math.factorial(female_players - max_players_of_each_gender_in_car))
+
+# The number of ways to order 4 passengers in the car
+car_seat_ordering = math.factorial(car_seats - car_drivers) 
+
+# The number of ways to order 8 passengers in the van
+van_seat_ordering = math.factorial(van_seats - van_drivers) 
+
+# The total number of different ways to distribute the fourteen elements of the entourage among the fourteen available places
+total_ways = permutations_drivers * permutations_male_players_in_car * permutations_female_players_in_car * car_seat_ordering * van_seat_ordering
+
+print(total_ways)
+",,"[3, 6, 7, 8, 1, 17, 21, 18, 22, 25, 24, 19, 12, 5, 4, 20, 9, 15, 11, 10, 16, 13, 14, 23]"
+3,"Consider that the initial constitution of the bag has changed and that, in this bag, there are now eight blue balls and seven white balls. The intention is to place all these balls in ten boxes numbered from 1 to 10, in such a way that: each box with an even number has at least one blue ball; each odd-numbered box has at least one white ball; Each box has a maximum of two balls. Under these conditions, how many different ways can the balls be placed in the ten boxes?",0.021128,"""""""
+write a program that answers the following question: Consider that the initial constitution of the bag has changed and that, in this bag, there are now eight blue balls and seven white balls. The intention is to place all these balls in ten boxes numbered from 1 to 10, in such a way that: each box with an even number has at least one blue ball; each odd-numbered box has at least one white ball; Each box has a maximum of two balls. Under these conditions, how many different ways can the balls be placed in the ten boxes?
+""""""
+","
+import itertools
 
 def main():
-    """"""
-    Run the program.
-    """"""
-    number_of_draws = int(input(""How many times do you want to draw 3 cards? ""))
-    number_of_successes = 0
-    for i in range(number_of_draws):
-        drawn_cards = draw_cards()
-        if check_cards(drawn_cards):
-            number_of_successes += 1
-    print(""The probability of drawing a figure followed by 2 different numbers is"", number_of_successes / number_of_draws)
+    # create a list of all possible combinations of 8 blue balls and 7 white balls
+    balls = list(itertools.combinations_with_replacement(['blue', 'white'], 15))
+    # create a list of all possible combinations of 10 boxes
+    boxes = list(itertools.combinations_with_replacement(range(1, 11), 15))
+    # create a list of all possible combinations of balls and boxes
+    combinations = list(itertools.product(balls, boxes))
+    # create a list of all possible combinations of balls and boxes that satisfy the conditions
+    valid_combinations = []
+    for combination in combinations:
+        # create a list of all the boxes that contain blue balls
+        blue_boxes = []
+        for i in range(len(combination[0])):
+            if combination[0][i] == 'blue':
+                blue_boxes.append(combination[1][i])
+        # create a list of all the boxes that contain white balls
+        white_boxes = []
+        for i in range(len(combination[0])):
+            if combination[0][i] == 'white':
+                white_boxes.append(combination[1][i])
+        # check if the combination satisfies the conditions
+        if all(box % 2 == 0 for box in blue_boxes) and all(box % 2 == 1 for box in white_boxes) and len(set(combination[1])) == 10:
+            valid_combinations.append(combination)
+    # print the number of valid combinations
+    print(len(valid_combinations))
 
-if __name__ == ""__main__"":
-    main()",0,[3],"""""""
-write a program that answers the following question: Generate simulations for calculating the average probability of getting a three-pair poker hand.
-
-A hand is a set of 5 cards that are drawn randomly from a standard 52 card deck with 13 ranks of 4 cards each.
-
-A three-pair poker hand is a hand that contains exactly 3 cards that share one rank, 1 card of another rank, and a final card of another rank.
-""""""
-
-import random
-
-def generate_hand():
-    """"""
-    Generates a random hand of 5 cards from a standard 52 card deck.
-    """"""
-    ranks = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
-    suits = ['S', 'H', 'D', 'C']
-    hand = []
-    for i in range(5):
-        rank = random.choice(ranks)
-        suit = random.choice(suits)
-        hand.append((rank, suit))
-    return hand
-
-def is_three_pair(hand):
-    """"""
-    Returns True if the hand is a three-pair poker hand.
-    """"""
-    ranks = [card[0] for card in hand]
-    rank_counts = {}
-    for rank in ranks:
-        if rank in rank_counts:
-            rank_counts[rank] += 1
-        else:
-            rank_counts[rank] = 1
-    if len(rank_counts) == 3:
-        return True
-    else:
-        return False
-
-def simulate_three_pair_probability(num_trials):
-    """"""
-    Simulates the probability of getting a three-pair poker hand.
-    """"""
-    num_three_pair = 0
-    for i in range(num_trials):
-        hand = generate_hand()
-        if is_three_pair(hand):
-            num_three_pair += 1
-    return num_three_pair / num_trials
-
-print(simulate_three_pair_probability(10000))
-
-""""""
-write a program that answers the following question: Consider a deck of 13 cards, with a representative of each card in a typical deck (Ace, 2, 3, 4, 5, 6, 7, 8, 9, 10, Jack, Queen and King). 3 cards are randomly drawn from the deck in sequence. In how many ways can you draw a figure (Jack, Queen or King) followed by 2 different numbers?
+if __name__ == '__main__':
+    main()",,"[2, 6, 7, 8, 1, 17, 18, 22, 21, 25, 24, 19, 12, 4, 5, 9, 20, 15, 11, 10, 16, 13, 14, 23]"
+4,"Three Swedish guests and four Danish guests intend to visit the hotel's surroundings. To this end, the hotel provides four motorcycles with two seats each (one black, one yellow, one white and one green). It is known that only Danish guests are allowed to drive. In how many different ways can the seven guests be distributed among the four bikes in this way?",0.047539,"""""""
+write a program that answers the following question: Three Swedish guests and four Danish guests intend to visit the hotel's surroundings. To this end, the hotel provides four motorcycles with two seats each (one black, one yellow, one white and one green). It is known that only Danish guests are allowed to drive. In how many different ways can the seven guests be distributed among the four bikes in this way?
 """"""
 ","
-import random
-
-def generate_hand():
-    """"""
-    Generates a random hand of 3 cards from a standard 13 card deck.
-    """"""
-    ranks = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
-    suits = ['S', 'H', 'D', 'C']
-    hand = []
-    for i in range(3):
-        rank = random.choice(ranks)
-        suit = random.choice(suits)
-        hand.append((rank, suit))
-    return hand
-
-def is_figure_followed_by_two_different_numbers(hand):
-    """"""
-    Returns True if the hand is a figure followed by two different numbers.
-    """"""
-    ranks = [card[0] for card in hand]
-    if ranks[0] in [11, 12, 13] and ranks[1] not in [11, 12, 13] and ranks[2] not in [11, 12, 13]:
-        return True
-    else:
-        return False
-
-def simulate_figure_followed_by_two_",
-2,"Consider a deck of 13 cards, with a representative of each card in a typical deck (Ace, 2, 3, 4, 5, 6, 7, 8, 9, 10, Jack, Queen and King). 3 cards are drawn at random from the deck. What is the probability that the product of the drawn cards is odd, knowing that only numbered cards were drawn?",overfit,"""""""
-write a program that answers the following question: Consider a deck of 13 cards, with a representative of each card in a typical deck (Ace, 2, 3, 4, 5, 6, 7, 8, 9, 10, Jack, Queen and King). 3 cards are drawn at random from the deck. What is the probability that the product of the drawn cards is odd, knowing that only numbered cards were drawn?
-""""""
-","
-import random
-
-def draw_cards():
-    """"""
-    Draw 3 cards from a deck of 13 cards.
-    """"""
-    deck = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
-    drawn_cards = []
-    for i in range(3):
-        drawn_cards.append(random.choice(deck))
-    return drawn_cards
-
-def is_odd(number):
-    """"""
-    Check if a number is odd.
-    """"""
-    if number % 2 == 0:
-        return False
-    else:
-        return True
-
-def is_product_odd(drawn_cards):
-    """"""
-    Check if the product of the drawn cards is odd.
-    """"""
-    product = 1
-    for card in drawn_cards:
-        product *= card
-    if is_odd(product):
-        return True
-    else:
-        return False
-
-def is_only_numbered_cards(drawn_cards):
-    """"""
-    Check if only numbered cards were drawn.
-    """"""
-    for card in drawn_cards:
-        if card > 10:
-            return False
-    return True
+import itertools
 
 def main():
-    """"""
-    Main function.
-    """"""
-    number_of_trials = 100000
-    number_of_successes = 0
-    for i in range(number_of_trials):
-        drawn_cards = draw_cards()
-        if is_product_odd(drawn_cards) and is_only_numbered_cards(drawn_cards):
-            number_of_successes += 1
-    print(""Probability of success:"", number_of_successes / number_of_trials)
-
-if __name__ == ""__main__"":
-    main()",0,[3],"""""""
-write a program that answers the following question: Generate simulations for calculating the average probability of getting a three-pair poker hand.
-
-A hand is a set of 5 cards that are drawn randomly from a standard 52 card deck with 13 ranks of 4 cards each.
-
-A three-pair poker hand is a hand that contains exactly 3 cards that share one rank, 1 card of another rank, and a final card of another rank.
-""""""
-
-import random
-
-def generate_hand():
-    """"""
-    Generates a random hand of 5 cards from a standard 52 card deck.
-    """"""
-    ranks = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
-    suits = ['S', 'H', 'D', 'C']
-    hand = []
-    for i in range(5):
-        rank = random.choice(ranks)
-        suit = random.choice(suits)
-        hand.append((rank, suit))
-    return hand
-
-def is_three_pair(hand):
-    """"""
-    Returns True if the hand is a three-pair poker hand.
-    """"""
-    ranks = [card[0] for card in hand]
-    rank_counts = {}
-    for rank in ranks:
-        if rank in rank_counts:
-            rank_counts[rank] += 1
-        else:
-            rank_counts[rank] = 1
-    if len(rank_counts) == 3:
-        return True
-    else:
-        return False
-
-def simulate_three_pair_probability(num_trials):
-    """"""
-    Simulates the probability of getting a three-pair poker hand.
-    """"""
-    num_three_pair = 0
-    for i in range(num_trials):
-        hand = generate_hand()
-        if is_three_pair(hand):
-            num_three_pair += 1
-    return num_three_pair / num_trials
-
-print(simulate_three_pair_probability(10000))
-
-""""""
-write a program that answers the following question: Consider a deck of 13 cards, with a representative of each card in a typical deck (Ace, 2, 3, 4, 5, 6, 7, 8, 9, 10, Jack, Queen and King). 3 cards are drawn at random from the deck. What is the probability that the product of the drawn cards is odd, knowing that only numbered cards were drawn?
+    # create a list of all possible combinations of the 7 guests
+    guests = list(itertools.permutations(range(1,8)))
+    # create a list of all possible combinations of the 4 bikes
+    bikes = list(itertools.permutations(range(1,5)))
+    # create a list of all possible combinations of the 7 guests and 4 bikes
+    guests_bikes = list(itertools.product(guests, bikes))
+    # create a list of all possible combinations of the 7 guests and 4 bikes where the first guest is on the first bike
+    guests_bikes_first = list(itertools.product(guests, bikes))
+    # create a list of all possible combinations of the 7 guests and 4 bikes where the first guest is on the first bike and the second guest is on the second bike
+    guests_bikes_first_second = list(itertools.product(guests, bikes))
+    # create a list of all possible combinations of the 7 guests and 4 bikes where the first guest is on the first bike and the second guest is on the second bike and the third guest is on the third bike
+    guests_bikes_first_second_third = list(itertools.product(guests, bikes))
+    # create a list of all possible combinations of the 7 guests and 4 bikes where the first guest is on the first bike and the second guest is on the second bike and the third guest is on the third bike and the fourth guest is on the fourth bike
+    guests_bikes_first_second_third_fourth = list(itertools.product(guests, bikes))
+    # create a list of all possible combinations of the 7 guests and 4 bikes where the first guest is on the first bike and the second guest is on the second bike and the third guest is on the third bike and the fourth guest is on the fourth bike and the fifth guest is on the first bike
+    guests_bikes_first_second_third_fourth_fifth = list(itertools.product(guests, bikes))
+    # create a list of all possible combinations of the 7 guests and 4 bikes where the first guest is on the first bike and the second guest is on the second bike and the third guest is on the third bike and the fourth guest",,"[5, 3, 2, 22, 17, 21, 18, 24, 8, 6, 1, 7, 25, 16, 15, 11, 19, 9, 12, 10, 20, 13, 14, 23]"
+5,"A bag contains 12 cards in the shape of geometrically equal rectangles: 3 blue, 2 white, 3 black and 4 red. The 12 cards will be removed, successively and at random, from the bag and placed on a table, lined up in the order in which they are removed. Find the probability that the blue cards are all together. Express the result as an irreducible fraction.",0.333333333,"""""""
+write a program that answers the following question: A bag contains 12 cards in the shape of geometrically equal rectangles: 3 blue, 2 white, 3 black and 4 red. The 12 cards will be removed, successively and at random, from the bag and placed on a table, lined up in the order in which they are removed. Find the probability that the blue cards are all together. Express the result as an irreducible fraction.
 """"""
 ","
-import random
+import itertools
 
-def generate_hand():
-    """"""
-    Generates a random hand of 3 cards from a standard 13 card deck.
-    """"""
-    ranks = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
-    suits = ['S', 'H', 'D', 'C']
-    hand = []
-    for i in range(3):
-        rank = random.choice(ranks)
-        suit = random.choice(suits)
-        hand.append((rank, suit))
-    return hand
-
-def is_odd_product(hand):
-    """"""
-    Returns True if the product of the cards in the hand is odd.
-    """"""
-    ranks = [card[0] for card in hand]
-    product = 1
-    for rank in ranks:
-        product *= rank
-    if product % 2 == 1:
-        return True
+def factorial(n):
+    if n == 0:
+        return 1
     else:
-        return False
+        return n * factorial(n-1)
 
-def simulate_odd_product_probability(num_trials):
-    """"""
-    Simulates the probability of getting a hand with an odd product.
-    """"""
-",
-3,"Generate simulations for calculating the average probability of getting a three-pair poker hand.
+def combinations(n, k):
+    return factorial(n) / (factorial(k) * factorial(n-k))
 
-A hand is a set of 5 cards that are drawn randomly from a standard 52 card deck with 13 ranks of 4 cards each.
+def permutations(n):
+    return factorial(n)
 
-A three-pair poker hand is a hand that contains exactly 3 cards that share one rank, 1 card of another rank, and a final card of another rank.",0.021128,"""""""
-write a program that answers the following question: Generate simulations for calculating the average probability of getting a three-pair poker hand.
+def probability(n, k):
+    return combinations(n, k) / permutations(n)
 
-A hand is a set of 5 cards that are drawn randomly from a standard 52 card deck with 13 ranks of 4 cards each.
+def main():
+    # the number of cards in the bag
+    n = 12
+    # the number of blue cards
+    k = 3
+    # the number of cards that can be placed on the table
+    m = 12
+    # the number of blue cards that can be placed on the table
+    l = 3
+    # the number of ways to place the blue cards on the table
+    b = combinations(m, l)
+    # the number of ways to place the blue cards on the table
+    # such that they are all together
+    a = combinations(m-1, l-1)
+    # the number of ways to place the cards on the table
+    # such that the blue cards are all together
+    c = a * b
+    # the number of ways to place the cards on the table
+    d = permutations(m)
+    # the probability that the blue cards are all together
+    p = c / d
+    print(p)
 
-A three-pair poker hand is a hand that contains exactly 3 cards that share one rank, 1 card of another rank, and a final card of another rank.
-""""""
-","
-import random
-
-def generate_hand():
-    """"""
-    Generates a random hand of 5 cards from a standard 52 card deck.
-    """"""
-    ranks = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
-    suits = ['S', 'H', 'D', 'C']
-    hand = []
-    for i in range(5):
-        rank = random.choice(ranks)
-        suit = random.choice(suits)
-        hand.append((rank, suit))
-    return hand
-
-def is_three_pair(hand):
-    """"""
-    Returns True if the hand is a three-pair poker hand.
-    """"""
-    ranks = [card[0] for card in hand]
-    rank_counts = {}
-    for rank in ranks:
-        if rank in rank_counts:
-            rank_counts[rank] += 1
-        else:
-            rank_counts[rank] = 1
-    if len(rank_counts) == 3:
-        return True
-    else:
-        return False
-
-def simulate_three_pair_probability(num_trials):
-    """"""
-    Simulates the probability of getting a three-pair poker hand.
-    """"""
-    num_three_pair = 0
-    for i in range(num_trials):
-        hand = generate_hand()
-        if is_three_pair(hand):
-            num_three_pair += 1
-    return num_three_pair / num_trials
-
-print(simulate_three_pair_probability(10000))",1,[2],n/a,n/a,
+if __name__ == '__main__':
+    main()",,"[4, 22, 18, 3, 1, 2, 17, 25, 21, 24, 6, 8, 7, 11, 12, 19, 16, 15, 10, 20, 9, 14, 13, 23]"

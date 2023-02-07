@@ -1,9 +1,9 @@
 {
        "Course": "Introduction to Probability and Statistics",
        "Topic": "Probability",
-       "Original question": "Calculate the probability of getting a two-pair poker hand.",
-       "Codex input": "Using simulations, calculate the probability of getting a two-pair poker hand.",
-       "Codex code": "import random\n\ndef create_deck():\n    \"\"\"\n    Create a deck of cards.\n    \"\"\"\n    deck = []\n    for suit in range(4):\n        for rank in range(1, 14):\n            deck.append((suit, rank))\n    return deck\n\ndef deal_hand(deck):\n    \"\"\"\n    Deal a hand of 5 cards from the deck.\n    \"\"\"\n    hand = []\n    for i in range(5):\n        hand.append(deck.pop(random.randrange(len(deck))))\n    return hand\n\ndef get_rank_counts(hand):\n    \"\"\"\n    Get the number of cards of each rank in the hand.\n    \"\"\"\n    rank_counts = {}\n    for card in hand:\n        rank = card[1]\n        if rank in rank_counts:\n            rank_counts[rank] += 1\n        else:\n            rank_counts[rank] = 1\n    return rank_counts\n\ndef has_two_pair(hand):\n    \"\"\"\n    Check if the hand has 2 pairs of cards.\n    \"\"\"\n    rank_counts = get_rank_counts(hand)\n    num_pairs = 0\n    for rank in rank_counts:\n        if rank_counts[rank] == 2:\n            num_pairs += 1\n    return num_pairs == 2\n\ndef main():\n    \"\"\"\n    Main program.\n    \"\"\"\n    num_iterations = 10000\n    num_two_pair = 0\n    for i in range(num_iterations):\n        deck = create_deck()\n        hand = deal_hand(deck)\n        if has_two_pair(hand):\n            num_two_pair += 1\n    print(\"Probability of getting 2 pairs in a 5 card poker hand:\", num_two_pair / num_iterations)\n\nif __name__ == \"__main__\":\n    main()",
+       "Original question": "Three Swedish guests and four Danish guests intend to visit the hotel's surroundings. To this end, the hotel provides four motorcycles with two seats each (one black, one yellow, one white and one green). It is known that only Danish guests are allowed to drive. In how many different ways can the seven guests be distributed among the four bikes in this way?",
+       "Codex input": "",
+       "Codex code": "",
        "Codex code explanation": "1. Create a deck of cards.\n2. Deal a hand of 5 cards from the deck.\n3. Check if the hand has 2 pairs of cards.\n4. Repeat steps 2 and 3 10000 times.\n5. Calculate the probability of getting a two-pair hand.",
        "Program solution": 0.047539,
        "Solution type": "Automatic Few-shot (1)",
