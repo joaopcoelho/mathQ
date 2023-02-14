@@ -1,4 +1,4 @@
-Question,Original Question,Actual Solution,Codex Input,Codex Output,Zero-Shot Evaluation,Most Similar Questions
+Question,Original Question,Actual Solution,Codex Input,Codex Output,Zero-Shot Evaluation,Most Similar Questions,Few-Shot Input,Few-Shot Output,Few-Shot Evaluation
 1,"Fernanda has five different books and seven different pens to share with her two grandchildren, Armando and Catarino. Fernanda will offer three books and three pens to one of the grandchildren, and the remaining objects to the other, or four books and two pens to one of the grandchildren, and the remaining objects to the other. Determine, under these conditions, how many different ways Fernanda can divide the twelve objects between her two grandchildren.",overfit,"""""""
 write a program that answers the following question: Fernanda has five different books and seven different pens to share with her two grandchildren, Armando and Catarino. Fernanda will offer three books and three pens to one of the grandchildren, and the remaining objects to the other, or four books and two pens to one of the grandchildren, and the remaining objects to the other. Determine, under these conditions, how many different ways Fernanda can divide the twelve objects between her two grandchildren.
 """"""
@@ -34,7 +34,7 @@ combinations_4_books_2_pens = number_of_grandchildren * books_combinations * pen
 
 total_combinations = combinations_3_books_3_pens + combinations_4_books_2_pens
 
-print(total_combinations)",,"[4, 2, 3, 6, 5, 7, 21, 22, 8, 9, 24, 17, 18, 25, 19, 20, 12, 11, 15, 13, 14, 10, 23, 16]"
+print(total_combinations)",1,"[4, 2, 3, 6, 5, 7, 21, 22, 8, 9, 24, 17, 18, 25, 19, 20, 12, 11, 15, 13, 14, 10, 23, 16]",n/a,n/a,
 2,"Korfball is a mixed team sport, which originated in the Netherlands. A korfball club from a certain country is going to participate in an international tournament. The delegation will travel by land, using a five-seater car and a nine-seater van. The entourage consists of three managers, a coach, five male and five female players. Write an expression that gives the number of different ways to distribute the fourteen elements of the entourage among the fourteen available places, knowing that the two drivers are two of the managers and that, in the car, there are two players of each gender.",overfit,"""""""
 write a program that answers the following question: Korfball is a mixed team sport, which originated in the Netherlands. A korfball club from a certain country is going to participate in an international tournament. The delegation will travel by land, using a five-seater car and a nine-seater van. The entourage consists of three managers, a coach, five male and five female players. Write an expression that gives the number of different ways to distribute the fourteen elements of the entourage among the fourteen available places, knowing that the two drivers are two of the managers and that, in the car, there are two players of each gender.
 """"""
@@ -72,7 +72,7 @@ van_seat_ordering = math.factorial(van_seats - van_drivers)
 total_ways = permutations_drivers * combinations_male_players_in_car * combinations_female_players_in_car * car_seat_ordering * van_seat_ordering
 
 print(total_ways)
-",,"[3, 6, 4, 5, 1, 17, 21, 18, 22, 25, 24, 19, 12, 7, 8, 20, 9, 15, 11, 10, 16, 13, 14, 23]"
+",1,"[3, 6, 4, 5, 1, 17, 21, 18, 22, 25, 24, 19, 12, 7, 8, 20, 9, 15, 11, 10, 16, 13, 14, 23]",n/a,n/a,
 3,"A bag contains blue balls and white balls, indistinguishable by touch. Each ball has a single color and there are only blue balls and white balls in the bag. There are eight blue balls and seven white balls in the bag. The intention is to place all these balls in ten boxes numbered from 1 to 10, in such a way that: each box with an even number has at least one blue ball; each odd-numbered box has at least one white ball; and each box has a maximum of two balls. Under these conditions, how many different ways can the balls be placed in the ten boxes?",overfit,"""""""
 write a program that answers the following question: Consider that the initial constitution of the bag has changed and that, in this bag, there are now eight blue balls and seven white balls. The intention is to place all these balls in ten boxes numbered from 1 to 10, in such a way that: each box with an even number has at least one blue ball; each odd-numbered box has at least one white ball; Each box has a maximum of two balls. Under these conditions, how many different ways can the balls be placed in the ten boxes?
 """"""
@@ -104,7 +104,7 @@ combinations_blue_balls_in_remaining_boxes = math.factorial(total_boxes - white_
 total_ways = combinations_white_balls_in_remaining_boxes * combinations_blue_balls_in_remaining_boxes
 
 print(total_ways)
-",,"[2, 6, 4, 5, 1, 17, 18, 22, 21, 25, 24, 19, 12, 7, 8, 9, 20, 15, 11, 10, 16, 13, 14, 23]"
+",1,"[2, 6, 4, 5, 1, 17, 18, 22, 21, 25, 24, 19, 12, 7, 8, 9, 20, 15, 11, 10, 16, 13, 14, 23]",n/a,n/a,
 4,"Three Swedish guests and four Danish guests intend to visit the hotel's surroundings. To this end, the hotel provides four bikes with two seats each (one black, one yellow, one white and one green). It is known that only Danish guests are allowed to drive. In how many different ways can the seven guests be distributed among the four bikes in this way?",overfit,"""""""
 write a program that answers the following question: Three Swedish guests and four Danish guests intend to visit the hotel's surroundings. To this end, the hotel provides four motorcycles with two seats each (one black, one yellow, one white and one green). It is known that only Danish guests are allowed to drive. In how many different ways can the seven guests be distributed among the four bikes in this way?
 """"""
@@ -127,7 +127,7 @@ ways_of_arranging_swedish_guests = math.factorial(bikes) / math.factorial(bikes 
 # The total number of different ways to distribute the guests among the bikes
 total_ways = ways_of_arranging_danish_guests * ways_of_arranging_swedish_guests
 
-print(total_ways)",,"[5, 3, 2, 1, 6, 21, 18, 24, 8, 22, 17, 7, 25, 16, 15, 11, 19, 9, 12, 10, 20, 13, 14, 23]"
+print(total_ways)",1,"[5, 3, 2, 1, 6, 21, 18, 24, 8, 22, 17, 7, 25, 16, 15, 11, 19, 9, 12, 10, 20, 13, 14, 23]",n/a,n/a,
 5,"A bag contains 12 cards in the shape of geometrically equal rectangles: 3 blue, 2 white, 3 black and 4 red. The 12 cards will be removed, successively and at random, from the bag and placed on a table, lined up in the order in which they are removed. Find the probability that the blue cards are all together. Express the result as an irreducible fraction.",overfit,"""""""
 write a program that answers the following question: A bag contains 12 cards in the shape of geometrically equal rectangles: 3 blue, 2 white, 3 black and 4 red. The 12 cards will be removed, successively and at random, from the bag and placed on a table, lined up in the order in which they are removed. Find the probability that the blue cards are all together. Express the result as an irreducible fraction.
 """"""
@@ -158,4 +158,254 @@ number_of_possible_cases = math.factorial(total_cards)
 # probability of all blue cards being grouped together, expressed as a fraction
 probability_blue_cards_grouped_together = Fraction(number_of_favourable_cases, number_of_possible_cases)
 
-print(probability_blue_cards_grouped_together)",,"[4, 2, 6, 3, 1, 22, 17, 25, 21, 24, 18, 8, 7, 11, 12, 19, 16, 15, 10, 20, 9, 14, 13, 23]"
+print(probability_blue_cards_grouped_together)",1,"[4, 2, 6, 3, 1, 22, 17, 25, 21, 24, 18, 8, 7, 11, 12, 19, 16, 15, 10, 20, 9, 14, 13, 23]",n/a,n/a,
+6,"A press conference takes place in a room, where the chairs are arranged in three rows, each row with eight chairs. Each journalist sits down in one chair. The first two rows are totally occupied. In how many different ways can the 20 journalists be seated?",overfit,"""""""
+write a program that answers the following question: A press conference takes place in a room, where the chairs are arranged in five rows, each row with eight chairs. All journalists sit down, no more than one on each chair in the first three rows. In how many different ways can the 20 journalists be seated, knowing that the first two rows must be fully occupied?
+""""""
+","
+import math
+
+# there are 20 journalists
+journalists = 20
+
+# there are 8 chairs per row, and 3 rows in total
+chairs_per_row = 8
+total_chairs = 24
+
+# the number of journalists that must be seated in the first two rows
+journalists_first_2_rows = 16
+
+# The number of ways to choose 16 from among the 20 journalists to sit in the first 2 rows
+combinations_journalists_in_first_two_rows = math.factorial(journalists) / (math.factorial(journalists_first_2_rows) * math.factorial(journalists - journalists_first_2_rows ))
+
+# The number of ways to order the 16 journalists in the first 2 rows
+ordering_journalists_in_first_2_rows = math.factorial(journalists_first_2_rows)
+
+# The number of ways to choose 4 from among the remaining 4 journalists to sit in the last row
+combinations_journalists_in_last_row = math.factorial(chairs_per_row) / (math.factorial(journalists - journalists_first_2_rows) * math.factorial( chairs_per_row - (journalists - journalists_first_2_rows) ))
+
+# The number of ways to order the remaining 4 journalists in the last remaining row
+ordering_journalists_in_last_row = math.factorial(journalists - journalists_first_2_rows)
+
+# The total number of different ways to distribute the journalists among the chairs
+total_ways = combinations_journalists_in_first_two_rows * ordering_journalists_in_first_2_rows * combinations_journalists_in_last_row * ordering_journalists_in_last_row
+
+print(total_ways)",1,"[4, 2, 1, 5, 3]",n/a,n/a,
+7,"A football match takes place in a stadium, where the seats are arranged in three rows. Each row has ten seats. There are 26 fans watching the match. Each fan sits down in one seat and the first two rows are fully occupied. In how many different ways can the 26 fans be seated?",overfit,"""""""
+write a program that answers the following question: A football match takes place in a stadium, where the seats are arranged in three rows. Each row has ten seats. There are 26 fans watching the match. Each fan sits down in one seat and the first two rows are fully occupied. In how many different ways can the 26 fans be seated?
+""""""
+","
+import itertools
+
+def main():
+    # create a list of all possible seating arrangements
+    seating_arrangements = list(itertools.permutations(range(1,27)))
+
+    # create a list of all seating arrangements that have the first two rows full
+    seating_arrangements_first_two_rows_full = []
+    for seating_arrangement in seating_arrangements:
+        if seating_arrangement[0] <= 10 and seating_arrangement[1] <= 10:
+            seating_arrangements_first_two_rows_full.append(seating_arrangement)
+
+    # print the number of seating arrangements that have the first two rows full
+    print(len(seating_arrangements_first_two_rows_full))
+
+if __name__ == ""__main__"":
+    main()",0,"[6, 4, 3, 2, 1, 5]","""""""
+write a program that answers the following question: A press conference takes place in a room, where the chairs are arranged in five rows, each row with eight chairs. All journalists sit down, no more than one on each chair in the first three rows. In how many different ways can the 20 journalists be seated, knowing that the first two rows must be fully occupied?
+""""""
+
+import math
+
+# there are 20 journalists
+journalists = 20
+
+# there are 8 chairs per row, and 3 rows in total
+chairs_per_row = 8
+total_chairs = 24
+
+# the number of journalists that must be seated in the first two rows
+journalists_first_2_rows = 16
+
+# The number of ways to choose 16 from among the 20 journalists to sit in the first 2 rows
+combinations_journalists_in_first_two_rows = math.factorial(journalists) / (math.factorial(journalists_first_2_rows) * math.factorial(journalists - journalists_first_2_rows ))
+
+# The number of ways to order the 16 journalists in the first 2 rows
+ordering_journalists_in_first_2_rows = math.factorial(journalists_first_2_rows)
+
+# The number of ways to choose 4 from among the remaining 4 journalists to sit in the last row
+combinations_journalists_in_last_row = math.factorial(chairs_per_row) / (math.factorial(journalists - journalists_first_2_rows) * math.factorial( chairs_per_row - (journalists - journalists_first_2_rows) ))
+
+# The number of ways to order the remaining 4 journalists in the last remaining row
+ordering_journalists_in_last_row = math.factorial(journalists - journalists_first_2_rows)
+
+# The total number of different ways to distribute the journalists among the chairs
+total_ways = combinations_journalists_in_first_two_rows * ordering_journalists_in_first_2_rows * combinations_journalists_in_last_row * ordering_journalists_in_last_row
+
+print(total_ways)
+
+""""""
+write a program that answers the following question: Three Swedish guests and four Danish guests intend to visit the hotel's surroundings. To this end, the hotel provides four motorcycles with two seats each (one black, one yellow, one white and one green). It is known that only Danish guests are allowed to drive. In how many different ways can the seven guests be distributed among the four bikes in this way?
+""""""
+
+import math
+
+# there are 3 swedish guests and 4 danish guests
+swedish_guests = 3
+danish_guests = 4
+
+# there are 4 bikes with 2 seats each, each with a different color
+bikes = 4
+
+# only the danish guests can drive, so each has to take one motorcycle
+ways_of_arranging_danish_guests = math.factorial(bikes) / math.factorial(bikes - danish_guests)
+
+# the remaining 3 guests need to be distributed among the 4 remaining seats
+ways_of_arranging_swedish_guests = math.factorial(bikes) / math.factorial(bikes - swedish_guests)
+
+# The total number of different ways to distribute the guests among the bikes
+total_ways = ways_of_arranging_danish_guests * ways_of_arranging_swedish_guests
+
+print(total_ways)
+
+""""""
+write a program that answers the following question: Consider that the initial constitution of the bag has changed and that, in this bag, there are now eight blue balls and seven white balls. The intention is to place all these balls in ten boxes numbered from 1 to 10, in such a way that: each box with an even number has at least one blue ball; each odd-numbered box has at least one white ball; Each box has a maximum of two balls. Under these conditions, how many different ways can the balls be placed in the ten boxes?
+""""""
+
+import math
+
+# there are 8 blue balls and 7 white balls
+blue_balls = 8
+white_balls = 7
+
+# there are 5 even-numbered boxes and 5 odd-numbered boxes
+even_boxes = 5
+odd_boxes = 5
+total_boxes = even_boxes + odd_boxes
+
+# after each even-numbered box gets 1 blue ball, there are 3 blue balls remaining
+blue_balls_remaining = blue_balls - even_boxes
+
+# after each odd-numbered box gets 1 white ball, there are 2 white balls remaining
+white_balls_remaining = white_balls - odd_boxes
+
+# The number of ways to place the 2 remaning white balls among the 10 boxes
+combinations_white_balls_in_remaining_boxes = math.factorial(total_boxes) / (math.factorial(white_balls_remaining) * math.factorial(total_boxes - white_balls_remaining))
+
+# The number of ways to place the 3 remaning white balls among the remaining 8 boxes
+combinations_blue_balls_in_remaining_boxes = math.factorial(total_boxes - white_balls_remaining) / (math.factorial(blue_balls_remaining) * math.factorial( (total_boxes - white_balls_remaining) - blue_balls_remaining))
+
+# The total number of different ways to distribute the balls in the boxes
+total_ways = combinations_white_balls_in_remaining_boxes * combinations_blue_balls_in_remaining_boxes
+
+print(total_ways)
+
+
+""""""
+write a program that answers the following question: Korfball is a mixed team sport, which originated in the Netherlands. A korfball club from a certain country is going to participate in an international tournament. The delegation will travel by land, using a five-seater car and a nine-seater van. The entourage consists of three managers, a coach, five male and five female players. Write an expression that gives the number of different ways to distribute the fourteen elements of the entourage among the fourteen available places, knowing that the two drivers are two of the managers and that, in the car, there are two players of each gender.
+""""""
+
+import math # Solution
+
+car_seats = 5
+car_drivers = 1
+van_seats = 9
+van_drivers = 1
+drivers = car_drivers + van_drivers
+managers = 3
+
+# The number of ways to choose 2 drivers from 3 managers
+permutations_drivers = math.factorial(managers) / (math.factorial(managers - drivers))
+
+coaches = 1
+male_players = 5
+female_players = 5
+max_players_of_each_gender_in_car = 2
+
+# The number of ways to choose 2 male players among 5 male players
+combinations_male_players_in_car = math.factorial(male_players) / (math.factorial(max_players_of_each_gender_in_car) * math.factorial(male_players - max_players_of_each_gender_in_car))
+
+# The number of ways to choose 2 female players among 5 female players
+combinations_female_players_in_car = math.factorial(female_players) / (math.factorial(max_players_of_each_gender_in_car) * math.factorial(female_players - max_players_of_each_gender_in_car))
+
+# The number of ways to order 4 passengers in the car
+car_seat_ordering = math.factorial(car_seats - car_drivers) 
+
+# The number of ways to order 8 passengers in the van
+van_seat_ordering = math.factorial(van_seats - van_drivers) 
+
+# The total number of different ways to distribute the fourteen elements of the entourage among the fourteen available places
+total_ways = permutations_drivers * combinations_male_players_in_car * combinations_female_players_in_car * car_seat_ordering * van_seat_ordering
+
+print(total_ways)
+
+
+""""""
+write a program that answers the following question: Fernanda has five different books and seven different pens to share with her two grandchildren, Armando and Catarino. Fernanda will offer three books and three pens to one of the grandchildren, and the remaining objects to the other, or four books and two pens to one of the grandchildren, and the remaining objects to the other. Determine, under these conditions, how many different ways Fernanda can divide the twelve objects between her two grandchildren.
+""""""
+
+import math # Solution
+
+number_of_grandchildren = 2
+
+# The number of ways to choose 3 books from 5 books
+books = 5
+
+books_chosen = 3
+books_combinations = math.factorial(books) / (math.factorial(books_chosen) * math.factorial(books - books_chosen))
+
+# The number of ways to choose 3 pens from 7 pens
+pens = 7
+pens_chosen = 3
+pens_combinations = math.factorial(pens) / (math.factorial(pens_chosen) * math.factorial(pens - pens_chosen))
+
+# The number of ways to choose 3 books and 3 pens from 5 books and 7 pens
+combinations_3_books_3_pens = number_of_grandchildren * books_combinations * pens_combinations
+
+# The number of ways to choose 4 books from 5 books
+books_chosen = 4
+books_combinations = math.factorial(books) / (math.factorial(books_chosen) * math.factorial(books - books_chosen))
+
+# The number of ways to choose 2 pens from 7 pens
+pens_chosen = 2
+pens_combinations = math.factorial(pens) / (math.factorial(pens_chosen) * math.factorial(pens - pens_chosen))
+
+# The number of ways to choose 4 books and 2 pens from 5 books and 7 pens
+combinations_4_books_2_pens = number_of_grandchildren * books_combinations * pens_combinations
+
+total_combinations = combinations_3_books_3_pens + combinations_4_books_2_pens
+
+print(total_combinations)
+
+""""""
+write a program that answers the following question: A football match takes place in a stadium, where the seats are arranged in three rows. Each row has ten seats. There are 26 fans watching the match. Each fan sits down in one seat and the first two rows are fully occupied. In how many different ways can the 26 fans be seated?
+""""""
+","
+import math # Solution
+
+# there are 26 fans
+fans = 26
+
+# there are 10 seats per row, and 3 rows in total
+seats_per_row = 10
+total_seats = 30
+
+# the number of fans that must be seated in the first two rows
+fans_first_2_rows = 20
+
+# The number of ways to choose 20 from among the 26 fans to sit in the first 2 rows
+combinations_fans_in_first_two_rows = math.factorial(fans) / (math.factorial(fans_first_2_rows) * math.factorial(fans - fans_first_2_rows ))
+
+# The number of ways to order the 20 fans in the first 2 rows
+ordering_fans_in_first_2_rows = math.factorial(fans_first_2_rows)
+
+# The number of ways to choose 6 from among the remaining 6 fans to sit in the last row
+combinations_fans_in_last_row = math.factorial(seats_per_row) / (math.factorial(fans - fans_first_2_rows) * math.factorial( seats_per_row - (fans - fans_first_2_rows) ))
+
+# The number of ways to order the remaining 6 fans in the last remaining row
+ordering_fans_in_last_row = math.factorial(fans - fans_first_2_rows)
+
+# The total number of different ways to distribute the fans among the seats
+total_ways = combinations_fans_in_first_two_rows * ordering_fans_in_first_2_rows * combinations_fans_in_last_row * ordering_fans_in_last_row
+
+print(total_ways)",
