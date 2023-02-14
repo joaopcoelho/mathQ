@@ -5,7 +5,7 @@
        "Codex input": "",
        "Codex code": "",
        "Codex code explanation": "1. We start by initializing the variables both_girls, older_girl, and either_girl to 0.\n2. We then simulate 10,000 families, and for each family we simulate two children.\n3. If the older child is a girl, we increment older_girl.\n4. If both children are girls, we increment both_girls.\n5. If at least one of the children is a girl, we increment either_girl.\n6. Finally, we compute the probabilities we are interested in.",
-       "Program solution": 0.333333333,
+       "Program solution": "overfti",
        "Solution type": "Automatic Zero-shot",
        "GPT-3 response": "There is a 50% chance that both children are boys.",
        "GPT-3 evaluation": "Incorrect"

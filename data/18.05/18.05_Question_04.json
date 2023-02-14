@@ -5,7 +5,7 @@
        "Codex input": "",
        "Codex code": "",
        "Codex code explanation": "1. Create a deck of cards.\n2. Deal a hand of 5 cards from the deck.\n3. Check if the hand has 2 pairs of cards.\n4. Repeat steps 2 and 3 10000 times.\n5. Calculate the probability of getting a two-pair hand.",
-       "Program solution": 0.047539,
+       "Program solution": "overfit",
        "Solution type": "Automatic Few-shot (1)",
        "GPT-3 response": "There are 13 possible pairs of cards: Aces-Aces, Aces-Twos, Aces-Threes, Aces-Fours, Aces-Fives, Aces-Sixes, Aces-Sevens, Aces-Eights, Aces-Nines, Aces-Tens, Aces-Jacks, Aces-Queens, Aces-Kings\n\nThere are 4 possible suits for each card: Hearts, Diamonds, Spades, Clubs\n\nThere are 2 possible ways to get a two-pair poker hand:\n\n1) You can have two pairs of the same card, such as two Aces and two Eights.\n\n2) You can have two pairs of different cards, such as an Ace and a King of Hearts, and an Ace and a King of Diamonds.\n\nThe probability of getting a two-pair poker hand is 2/13 * 4/13 * 4/13 = 8/2197.",
        "GPT-3 evaluation": "Incorrect"

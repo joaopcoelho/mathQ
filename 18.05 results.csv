@@ -57,10 +57,10 @@ female_players = 5
 max_players_of_each_gender_in_car = 2
 
 # The number of ways to choose 2 male players among 5 male players
-permutations_male_players_in_car = math.factorial(male_players) / (math.factorial(max_players_of_each_gender_in_car) * math.factorial(male_players - max_players_of_each_gender_in_car))
+combinations_male_players_in_car = math.factorial(male_players) / (math.factorial(max_players_of_each_gender_in_car) * math.factorial(male_players - max_players_of_each_gender_in_car))
 
 # The number of ways to choose 2 female players among 5 female players
-permutations_female_players_in_car = math.factorial(female_players) / (math.factorial(max_players_of_each_gender_in_car) * math.factorial(female_players - max_players_of_each_gender_in_car))
+combinations_female_players_in_car = math.factorial(female_players) / (math.factorial(max_players_of_each_gender_in_car) * math.factorial(female_players - max_players_of_each_gender_in_car))
 
 # The number of ways to order 4 passengers in the car
 car_seat_ordering = math.factorial(car_seats - car_drivers) 
@@ -69,111 +69,93 @@ car_seat_ordering = math.factorial(car_seats - car_drivers)
 van_seat_ordering = math.factorial(van_seats - van_drivers) 
 
 # The total number of different ways to distribute the fourteen elements of the entourage among the fourteen available places
-total_ways = permutations_drivers * permutations_male_players_in_car * permutations_female_players_in_car * car_seat_ordering * van_seat_ordering
+total_ways = permutations_drivers * combinations_male_players_in_car * combinations_female_players_in_car * car_seat_ordering * van_seat_ordering
 
 print(total_ways)
 ",,"[3, 6, 7, 8, 1, 17, 21, 18, 22, 25, 24, 19, 12, 5, 4, 20, 9, 15, 11, 10, 16, 13, 14, 23]"
-3,"Consider that the initial constitution of the bag has changed and that, in this bag, there are now eight blue balls and seven white balls. The intention is to place all these balls in ten boxes numbered from 1 to 10, in such a way that: each box with an even number has at least one blue ball; each odd-numbered box has at least one white ball; Each box has a maximum of two balls. Under these conditions, how many different ways can the balls be placed in the ten boxes?",0.021128,"""""""
+3,"A bag contains blue balls and white balls, indistinguishable by touch. Each ball has a single color and there are only blue balls and white balls in the bag. There are eight blue balls and seven white balls in the bag. The intention is to place all these balls in ten boxes numbered from 1 to 10, in such a way that: each box with an even number has at least one blue ball; each odd-numbered box has at least one white ball; and each box has a maximum of two balls. Under these conditions, how many different ways can the balls be placed in the ten boxes?",overfit,"""""""
 write a program that answers the following question: Consider that the initial constitution of the bag has changed and that, in this bag, there are now eight blue balls and seven white balls. The intention is to place all these balls in ten boxes numbered from 1 to 10, in such a way that: each box with an even number has at least one blue ball; each odd-numbered box has at least one white ball; Each box has a maximum of two balls. Under these conditions, how many different ways can the balls be placed in the ten boxes?
 """"""
 ","
-import itertools
+import math
 
-def main():
-    # create a list of all possible combinations of 8 blue balls and 7 white balls
-    balls = list(itertools.combinations_with_replacement(['blue', 'white'], 15))
-    # create a list of all possible combinations of 10 boxes
-    boxes = list(itertools.combinations_with_replacement(range(1, 11), 15))
-    # create a list of all possible combinations of balls and boxes
-    combinations = list(itertools.product(balls, boxes))
-    # create a list of all possible combinations of balls and boxes that satisfy the conditions
-    valid_combinations = []
-    for combination in combinations:
-        # create a list of all the boxes that contain blue balls
-        blue_boxes = []
-        for i in range(len(combination[0])):
-            if combination[0][i] == 'blue':
-                blue_boxes.append(combination[1][i])
-        # create a list of all the boxes that contain white balls
-        white_boxes = []
-        for i in range(len(combination[0])):
-            if combination[0][i] == 'white':
-                white_boxes.append(combination[1][i])
-        # check if the combination satisfies the conditions
-        if all(box % 2 == 0 for box in blue_boxes) and all(box % 2 == 1 for box in white_boxes) and len(set(combination[1])) == 10:
-            valid_combinations.append(combination)
-    # print the number of valid combinations
-    print(len(valid_combinations))
+# there are 8 blue balls and 7 white balls
+blue_balls = 8
+white_balls = 7
 
-if __name__ == '__main__':
-    main()",,"[2, 6, 7, 8, 1, 17, 18, 22, 21, 25, 24, 19, 12, 4, 5, 9, 20, 15, 11, 10, 16, 13, 14, 23]"
-4,"Three Swedish guests and four Danish guests intend to visit the hotel's surroundings. To this end, the hotel provides four motorcycles with two seats each (one black, one yellow, one white and one green). It is known that only Danish guests are allowed to drive. In how many different ways can the seven guests be distributed among the four bikes in this way?",0.047539,"""""""
+# there are 5 even-numbered boxes and 5 odd-numbered boxes
+even_boxes = 5
+odd_boxes = 5
+total_boxes = even_boxes + odd_boxes
+
+# after each even-numbered box gets 1 blue ball, there are 3 blue balls remaining
+blue_balls_remaining = blue_balls - even_boxes
+
+# after each odd-numbered box gets 1 white ball, there are 2 white balls remaining
+white_balls_remaining = white_balls - odd_boxes
+
+# The number of ways to place the 2 remaning white balls among the 10 boxes
+combinations_white_balls_in_remaining_boxes = math.factorial(total_boxes) / (math.factorial(white_balls_remaining) * math.factorial(total_boxes - white_balls_remaining))
+
+# The number of ways to place the 3 remaning white balls among the remaining 8 boxes
+combinations_blue_balls_in_remaining_boxes = math.factorial(total_boxes - white_balls_remaining) / (math.factorial(blue_balls_remaining) * math.factorial( (total_boxes - white_balls_remaining) - blue_balls_remaining))
+
+# The total number of different ways to distribute the balls in the boxes
+total_ways = combinations_white_balls_in_remaining_boxes * combinations_blue_balls_in_remaining_boxes
+
+print(total_ways)
+",,"[2, 6, 7, 8, 1, 17, 18, 22, 21, 25, 24, 19, 12, 4, 5, 9, 20, 15, 11, 10, 16, 13, 14, 23]"
+4,"Three Swedish guests and four Danish guests intend to visit the hotel's surroundings. To this end, the hotel provides four bikes with two seats each (one black, one yellow, one white and one green). It is known that only Danish guests are allowed to drive. In how many different ways can the seven guests be distributed among the four bikes in this way?",overfit,"""""""
 write a program that answers the following question: Three Swedish guests and four Danish guests intend to visit the hotel's surroundings. To this end, the hotel provides four motorcycles with two seats each (one black, one yellow, one white and one green). It is known that only Danish guests are allowed to drive. In how many different ways can the seven guests be distributed among the four bikes in this way?
 """"""
 ","
-import itertools
+import math
 
-def main():
-    # create a list of all possible combinations of the 7 guests
-    guests = list(itertools.permutations(range(1,8)))
-    # create a list of all possible combinations of the 4 bikes
-    bikes = list(itertools.permutations(range(1,5)))
-    # create a list of all possible combinations of the 7 guests and 4 bikes
-    guests_bikes = list(itertools.product(guests, bikes))
-    # create a list of all possible combinations of the 7 guests and 4 bikes where the first guest is on the first bike
-    guests_bikes_first = list(itertools.product(guests, bikes))
-    # create a list of all possible combinations of the 7 guests and 4 bikes where the first guest is on the first bike and the second guest is on the second bike
-    guests_bikes_first_second = list(itertools.product(guests, bikes))
-    # create a list of all possible combinations of the 7 guests and 4 bikes where the first guest is on the first bike and the second guest is on the second bike and the third guest is on the third bike
-    guests_bikes_first_second_third = list(itertools.product(guests, bikes))
-    # create a list of all possible combinations of the 7 guests and 4 bikes where the first guest is on the first bike and the second guest is on the second bike and the third guest is on the third bike and the fourth guest is on the fourth bike
-    guests_bikes_first_second_third_fourth = list(itertools.product(guests, bikes))
-    # create a list of all possible combinations of the 7 guests and 4 bikes where the first guest is on the first bike and the second guest is on the second bike and the third guest is on the third bike and the fourth guest is on the fourth bike and the fifth guest is on the first bike
-    guests_bikes_first_second_third_fourth_fifth = list(itertools.product(guests, bikes))
-    # create a list of all possible combinations of the 7 guests and 4 bikes where the first guest is on the first bike and the second guest is on the second bike and the third guest is on the third bike and the fourth guest",,"[5, 3, 2, 22, 17, 21, 18, 24, 8, 6, 1, 7, 25, 16, 15, 11, 19, 9, 12, 10, 20, 13, 14, 23]"
-5,"A bag contains 12 cards in the shape of geometrically equal rectangles: 3 blue, 2 white, 3 black and 4 red. The 12 cards will be removed, successively and at random, from the bag and placed on a table, lined up in the order in which they are removed. Find the probability that the blue cards are all together. Express the result as an irreducible fraction.",0.333333333,"""""""
+# there are 3 swedish guests and 4 danish guests
+swedish_guests = 3
+danish_guests = 4
+
+# there are 4 bikes with 2 seats each, each with a different color
+bikes = 4
+
+# only the danish guests can drive, so each has to take one motorcycle
+ways_of_arranging_danish_guests = math.factorial(bikes) / math.factorial(bikes - danish_guests)
+
+# the remaining 3 guests need to be distributed among the 4 remaining seats
+ways_of_arranging_swedish_guests = math.factorial(bikes) / math.factorial(bikes - swedish_guests)
+
+# The total number of different ways to distribute the guests among the bikes
+total_ways = ways_of_arranging_danish_guests * ways_of_arranging_swedish_guests
+
+print(total_ways)",,"[5, 3, 2, 22, 17, 21, 18, 24, 8, 6, 1, 7, 25, 16, 15, 11, 19, 9, 12, 10, 20, 13, 14, 23]"
+5,"A bag contains 12 cards in the shape of geometrically equal rectangles: 3 blue, 2 white, 3 black and 4 red. The 12 cards will be removed, successively and at random, from the bag and placed on a table, lined up in the order in which they are removed. Find the probability that the blue cards are all together. Express the result as an irreducible fraction.",overfit,"""""""
 write a program that answers the following question: A bag contains 12 cards in the shape of geometrically equal rectangles: 3 blue, 2 white, 3 black and 4 red. The 12 cards will be removed, successively and at random, from the bag and placed on a table, lined up in the order in which they are removed. Find the probability that the blue cards are all together. Express the result as an irreducible fraction.
 """"""
 ","
-import itertools
+import math
 
-def factorial(n):
-    if n == 0:
-        return 1
-    else:
-        return n * factorial(n-1)
+from fractions import Fraction
 
-def combinations(n, k):
-    return factorial(n) / (factorial(k) * factorial(n-k))
+# there are 12 cards: 3 blue, 2 white, 3 black and 4 red
+blue_cards = 3
+white_cards = 2
+black_cards = 3
+red_cards = 4
+total_cards = blue_cards + white_cards + black_cards + red_cards
 
-def permutations(n):
-    return factorial(n)
+# number of different ways to arrange the blue cards, in sequence
+blue_cards_ordering = math.factorial(blue_cards)
 
-def probability(n, k):
-    return combinations(n, k) / permutations(n)
+# number of different ways to arrange the group of blue cards among the remaining cards, in sequence
+remaining_cards_ordering = math.factorial((total_cards - blue_cards) + 1)
 
-def main():
-    # the number of cards in the bag
-    n = 12
-    # the number of blue cards
-    k = 3
-    # the number of cards that can be placed on the table
-    m = 12
-    # the number of blue cards that can be placed on the table
-    l = 3
-    # the number of ways to place the blue cards on the table
-    b = combinations(m, l)
-    # the number of ways to place the blue cards on the table
-    # such that they are all together
-    a = combinations(m-1, l-1)
-    # the number of ways to place the cards on the table
-    # such that the blue cards are all together
-    c = a * b
-    # the number of ways to place the cards on the table
-    d = permutations(m)
-    # the probability that the blue cards are all together
-    p = c / d
-    print(p)
+# number of favourable cases
+number_of_favourable_cases = blue_cards_ordering * remaining_cards_ordering
 
-if __name__ == '__main__':
-    main()",,"[4, 22, 18, 3, 1, 2, 17, 25, 21, 24, 6, 8, 7, 11, 12, 19, 16, 15, 10, 20, 9, 14, 13, 23]"
+# number of possible cases
+number_of_possible_cases = math.factorial(total_cards)
+
+# probability of all blue cards being grouped together, expressed as a fraction
+probability_blue_cards_grouped_together = Fraction(number_of_favourable_cases, number_of_possible_cases)
+
+print(probability_blue_cards_grouped_together)",,"[4, 22, 18, 3, 1, 2, 17, 25, 21, 24, 6, 8, 7, 11, 12, 19, 16, 15, 10, 20, 9, 14, 13, 23]"

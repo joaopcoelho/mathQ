@@ -1,11 +1,11 @@
 {
        "Course": "Introduction to Probability and Statistics",
        "Topic": "Probability",
-       "Original question": "Consider that the initial constitution of the bag has changed and that, in this bag, there are now eight blue balls and seven white balls. The intention is to place all these balls in ten boxes numbered from 1 to 10, in such a way that: each box with an even number has at least one blue ball; each odd-numbered box has at least one white ball; Each box has a maximum of two balls. Under these conditions, how many different ways can the balls be placed in the ten boxes?",
+       "Original question": "A bag contains blue balls and white balls, indistinguishable by touch. Each ball has a single color and there are only blue balls and white balls in the bag. There are eight blue balls and seven white balls in the bag. The intention is to place all these balls in ten boxes numbered from 1 to 10, in such a way that: each box with an even number has at least one blue ball; each odd-numbered box has at least one white ball; and each box has a maximum of two balls. Under these conditions, how many different ways can the balls be placed in the ten boxes?",
        "Codex input": "",
        "Codex code": "",
        "Codex code explanation": "1. Create a deck of cards.\n2. Deal a hand of 5 cards from the deck.\n3. Check if the hand has 3 cards of the same rank.\n4. Repeat steps 2 and 3 10000 times.\n5. Calculate the probability of getting 3 of a kind in a 5 card poker hand.",
-       "Program solution": 0.021128,
+       "Program solution": "overfit",
        "Solution type": "Automatic Zero-shot",
        "GPT-3 response": "There are 13 possible values for a three-of-a-kind poker hand:\n\n2, 3, 4, 5, 6, 7, 8, 9, 10, Jack, Queen, King, Ace\n\nThere are 4 suits, so there are 4 ways to choose 1 suit.\n\nThere are 4*13 = 52 ways to choose 3 cards from a deck of 52 cards.\n\nThere are C(52,3) = 52!/(3!*49!) = 2,598,960 ways to choose 3 cards from a deck of 52 cards.\n\nThe probability of getting a three-of-a-kind poker hand is 4/52 = 1/13.",
        "GPT-3 evaluation": "Incorrect"
