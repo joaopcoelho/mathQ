@@ -9,7 +9,7 @@ openai.api_key = os.getenv('OpenAI_API_Key')
 courses_to_few_shot = ['18.05']
 MATH_sections_to_few_shot = ['MATH_Algebra', 'MATH_Counting_&_Probability', 'MATH_Intermediate_Algebra',
                              'MATH_Number_Theory', 'MATH_Prealgebra', 'MATH_Precalculus']
-questions_per_course = 3
+questions_per_course = 6
 questions_per_MATH_section = 15
 
 parser = argparse.ArgumentParser()
@@ -21,7 +21,7 @@ parser.add_argument("--Do_Courses")
 args = parser.parse_args()
 
 # Will use this many few-shot examples if possible: (if fewer are solved, use as many as possible)
-few_shot_examples_desired = 1
+few_shot_examples_desired = 5
 codex_engine = "code-davinci-002"
 gpt3_engine = "text-davinci-002"
 engine_temperature = 0
